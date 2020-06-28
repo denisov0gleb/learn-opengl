@@ -21,26 +21,27 @@ int main(void)
 	if (!glfwInit())
 		return -1;
 
-	/*
-	 * glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	 * glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-	 * glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	 */
-
-	glewInit();
-
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
 	if (!window)
 	{
+		fprintf(stdout, ">>> ERROR >>> Cannot create window!\n");
 		glfwTerminate();
 		return -1;
 	}
 
-
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 
+	/* GLEW initialization show be after glfwMakeContextCurrent() */
+	if ( glewInit() != GLEW_OK )
+	{
+		fprintf(stdout, ">>> ERROR >>> Cannot initialize GLEW!\n");
+		return -1;
+	}
+
+	fprintf(stdout, "GL version:\n%s", glGetString(GL_VERSION));
+	
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
