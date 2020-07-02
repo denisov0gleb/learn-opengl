@@ -17,6 +17,7 @@ int main(void)
 {
 	GLFWwindow* window;
 
+
 	/* Initialize the library */
 	if (!glfwInit())
 		return -1;
@@ -42,17 +43,36 @@ int main(void)
 
 	fprintf(stdout, "GL version:\n%s", glGetString(GL_VERSION));
 	
+
+/*
+ *   How modern OpenGL works (not legacy OpenGL)
+ * 
+ *   VertexBuffer - a data in GPU memory
+ *   glGenBuffers(how many buffers, the memory address to that buffer);
+ * 
+ *   Initialize vertexBuffer:
+ *   glBindBuffer(what kind of buffer, buffer);
+ */
+
+	unsigned int buffer;
+	float positions[6] = {
+		-0.5f, -0.5f,
+		0.0f, 0.5f,
+		0.5f, -0.5f
+	};
+
+	glGenBuffers(1, &buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer);
+	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
+
+
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
 		/* Render here */
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glBegin(GL_TRIANGLES);
-		glVertex2f(-0.5f, -0.5f);
-		glVertex2f(0.0f, 0.5f);
-		glVertex2f(0.5f, -0.5f);
-		glEnd();
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
