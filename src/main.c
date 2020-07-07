@@ -46,12 +46,19 @@ int main(void)
 
 /*
  *   How modern OpenGL works (not legacy OpenGL)
- * 
+ *
  *   VertexBuffer - a data in GPU memory
  *   glGenBuffers(how many buffers, the memory address to that buffer);
- * 
+ *
  *   Initialize vertexBuffer:
  *   glBindBuffer(what kind of buffer, buffer);
+ */
+
+/*
+ * Shaders:
+ *   VertexShader - is called once for each vertex position
+ *   FragmentShader - is called once for each pixel needed to be rasterized (determine the color)
+ *     !It takes a lot of time and work! So need to optimize!
  */
 
 	unsigned int buffer;
