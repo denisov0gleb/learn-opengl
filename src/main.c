@@ -10,7 +10,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 	if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
-		fprintf(stdout, "\t>>> ACTION >>> Close window!\n");
+		fprintf(stdout, "\t>>> ACTION\t>>> Close window!\n");
 	}
 }
 
@@ -42,8 +42,8 @@ static unsigned int CompileShader(unsigned int type, const char* source)
 
 		glGetShaderInfoLog(id, length, &length, message);
 
-		fprintf(stdout, ">>> ERROR >>> Failed to compile %s shader!\n", type == GL_VERTEX_SHADER ? "vertex" : "fragment");
-		fprintf(stdout, ">>> ERROR >>> Message:\n%s\n", message);
+		fprintf(stdout, "\t>>> ERROR\t>>> Failed to compile %s shader!\n", type == GL_VERTEX_SHADER ? "vertex" : "fragment");
+		fprintf(stdout, "\t>>> ERROR\t>>> Message:\n%s\n", message);
 		glDeleteShader(id);
 
 		return 0;
@@ -80,7 +80,7 @@ int main(void)
 	/* Initialize the library */
 	if (!glfwInit())
 	{
-		fprintf(stdout, ">>> ERROR >>> Cannot initialize GLFW3!\n");
+		fprintf(stdout, "\t>>> ERROR\t>>> Cannot initialize GLFW3!\n");
 		return -1;
 	}
 
@@ -88,7 +88,7 @@ int main(void)
 	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
 	if (!window)
 	{
-		fprintf(stdout, ">>> ERROR >>> Cannot create window!\n");
+		fprintf(stdout, "\t>>> ERROR\t>>> Cannot create window!\n");
 		glfwTerminate();
 		return -1;
 	}
@@ -99,11 +99,11 @@ int main(void)
 	/* GLEW initialization show be after glfwMakeContextCurrent() */
 	if ( glewInit() != GLEW_OK )
 	{
-		fprintf(stdout, ">>> ERROR >>> Cannot initialize GLEW!\n");
+		fprintf(stdout, "\t>>> ERROR\t>>> Cannot initialize GLEW!\n");
 		return -1;
 	}
 
-	fprintf(stdout, ">>> INFO >>> GL version: %s", glGetString(GL_VERSION));
+	fprintf(stdout, "\t>>> INFO\t>>> GL version: %s\n", glGetString(GL_VERSION));
 	
 
 /*
@@ -241,6 +241,8 @@ int main(void)
 
 		glfwSetKeyCallback(window, key_callback);
 	}
+
+	glDeleteProgram(shader);
 
 	glfwTerminate();
 	return 0;
